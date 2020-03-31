@@ -15,6 +15,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         public DetailsModel(ILogger<DetailsModel> logger)
         {
             _logger = logger;
+            // Test change...
         }
 
         public TicketViewModel Ticket { get; private set; }
