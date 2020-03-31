@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Desk</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Titillium+Web:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <ul>
+      <li>
+        <a href="#" class="nav-toggle"><i class="fa fa-bars fa-lg"></i></a>
+      </li>
+      <li id="header-logo"><a href="#">Service Desk</a></li>
+      <li id="header-search">
+        <div class="search-box">
+          <input type="text" class="search-text" name="box" placeholder="Search..." />
+          <a href="#" class="search-btn"><i class="fa fa-search"></i></a>
+        </div>
+      </li>
+      <li>
+        <a href="#" class="aside-toggle"><i class="fa fa-cogs"></i></a>
+      </li>
+      <li>
+        <a href="#" class="aside-toggle"><i class="fa fa-bell"></i></a>
+      </li>
+      <li>
+        <a href="#" class="aside-toggle"><i class="fa fa-user-circle"></i></a>
+      </li>
+    </ul>
+  </header>
+
+  <nav>
+    <ul>
+      <li>
+        <button><i class="fa fa-plus"></i>New Case</button>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-dashboard"></i>Dashboard</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-comment-o"></i>My Cases</a>
+      </li>
+      <li>
+        <hr />
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-envelope-o"></i>Incoming</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-edit"></i>In Progress</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-check-square-o"></i>Completed</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Service Case No #1234 - Test Case</h2>
+
+    <section>
+      <p class="box">
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="" />
+      </p>
+
+      <p class="box">
+        <label for="registered">Registration Date</label>
+        <input type="text" name="registered" id="" />
+      </p>
+
+      <p class="box">
+        <label for="sender">Sender</label>
+        <input type="text" name="sender" id="" />
+      </p>
+
+      <p class="box box-span">
+        <label for="description">Description</label>
+        <textarea name="description" id="" cols="70" rows="8"></textarea>
+      </p>
+
+      <p class="box">
+        <label for="type">Type of Case</label>
+        <select name="type" id="">
+          <option value="">Select...</option>
+          <option value="incident">Incident</option>
+          <option value="question">Question</option>
+          <option value="other">Other</option>
+        </select>
+      </p>
+
+      <p class="box">
+        <label for="category">Category</label>
+        <select name="category" id="">
+          <option value="">Select...</option>
+          <option value="1">Category 1</option>
+          <option value="2">Category 2</option>
+          <option value="3">Category 3</option>
+        </select>
+      </p>
+
+      <p class="box">
+        <label for="severity">Severity</label>
+        <select name="sriority" id="">
+          <option value="">Select...</option>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </p>
+
+      <p class="box">
+        <label for="assigned-to">Assigned To</label>
+        <input type="text" name="assigned-to" id="" />
+      </p>
+
+      <p class="box">
+        <label for="">Last Updated</label>
+      </p>
+    </section>
+  </main>
+
+  <aside>
+    <div style="width:200px; padding:10px; border-left:1px solid #999">
+      <h3>Aside Section</h3>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse dolorum
+        reiciendis soluta delectus, id provident cupiditate animi architecto
+        officia atque iure illum quae labore ea!
+      </p>
+    </div>
+  </aside>
+
+  <footer>
+    <p>Footer</p>
+  </footer>
+</body>
+
+<script>
+  let navToggleStatus = true;
+  let asideToggleStatus = false;
+
+  document.querySelector(".nav-toggle").addEventListener("click", () => {
+    let nav = document.querySelector("nav");
+
+    if (navToggleStatus === false) {
+      nav.style.width = "200px";
+    } else {
+      nav.style.width = "0px";
+    }
+
+    navToggleStatus = !navToggleStatus;
+  });
+
+  let asideToggleElements = document.querySelectorAll(".aside-toggle");
+  asideToggleElements.forEach(function (elem) {
+    elem.addEventListener("click", () => {
+      let aside = document.querySelector("aside");
+
+      if (asideToggleStatus === false) {
+        aside.style.width = "300px";
+      } else {
+        aside.style.width = "0px";
+      }
+      asideToggleStatus = !asideToggleStatus;
+    });
+  });
+</script>
+
+</html>

@@ -1,0 +1,310 @@
+﻿:root {
+  --header-text-color: #ddd;
+  --main-text-color: #333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  color: var(--main-text-color);
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header    header   header"
+    "nav       main     aside"
+    "footer    footer   footer";
+}
+
+header {
+  grid-area: header;
+  background: #333;
+}
+
+header ul {
+  list-style-type: none;
+  display: flex;
+  /* main x-axis */
+  /* justify-content: space-between; */
+  /* y-axis */
+  align-items: center;
+  color: var(--header-text-color);
+}
+
+header li {
+  padding: 10px 10px;
+}
+
+header a {
+  display: block;
+  color: var(--header-text-color);
+  text-decoration: none;
+}
+
+#header-logo {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1.6rem;
+  white-space: nowrap;
+}
+
+#header-search {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+nav {
+  grid-area: nav;
+  width: 200px;
+  background: #333;
+  transition: width 0.2s ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+nav li {
+  padding: 1em;
+}
+
+nav a {
+  color: var(--header-text-color);
+  text-decoration: none;
+}
+
+nav i {
+  margin-right: 1em;
+}
+
+nav hr {
+  border: 0.5px solid #555;
+}
+
+main {
+  grid-area: main;
+  background: #ddd;
+  padding: 1em;
+  grid-column: main / span aside;
+}
+
+aside {
+  grid-area: aside;
+  width: 0px;
+  background: lightsteelblue;
+  transition: width 0.2s ease-in-out;
+  overflow: hidden;
+  justify-self: right;
+}
+
+footer {
+  grid-area: footer;
+  background: #333;
+}
+
+/* ---------------- Header Search Box */
+
+.search-box {
+  height: 2rem;
+  width: 17.5rem;
+  border: 1px solid #999;
+  background: #666;
+  border-radius: 20px;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.search-text {
+  border: none;
+  color: var(--header-text);
+  background: transparent;
+  width: 15rem;
+  padding: 0 10px;
+  outline: none;
+}
+
+.search-text::placeholder {
+  color: var(--header-text-color);
+}
+
+.search-text::-ms-input-placeholder {
+  color: var(--header-text-color);
+}
+
+.search-btn {
+  padding: 10px;
+  border: none;
+  background: transparent;
+  display: block;
+}
+
+
+main section {
+  max-width: 800px;
+  /* padding: 0.3em; */
+  /* margin-top: 1em; */
+}
+
+main label {
+  font-size: 0.9em;
+  font-weight: 500;
+  display: block;
+}
+
+
+/* -------------------- Form styling */
+
+.form-area {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(min-content, 1fr));
+  grid-gap: 1em;
+  margin-top: 1em;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+.form-cell {
+  padding: 0.5em;
+}
+
+.form-cellspan {
+  grid-column: 1 / span 2;
+}
+
+.form-area textarea,
+.form-area select,
+.form-area input[type="text"] {
+  font-size: 1em;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #999;
+  outline: none;
+  background: #eee;
+}
+
+.form-area textarea:focus,
+.form-area select:focus,
+.form-area input[type="text"]:focus {
+  background: lightsteelblue;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+
+
+/* -------------------- Buttons styling */
+
+.linkbutton,
+.button {
+  display: inline-block;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 0.6em 1em;
+  color: var(--header-text-color);
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+}
+
+.button i,
+.linkbutton i {
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background: #009879;
+}
+
+.btn-primary:hover {
+  background: #008869;
+}
+
+.btn-secondary {
+  background: #555;
+}
+
+.btn-secondary:hover {
+  background: #444;
+}
+
+
+
+
+
+/* -------------------- Table styling */
+
+table {
+  margin: 1em;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  /* overflow: hidden must be set for border-radius to take effect */
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+  background: #009879;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 0.8em;
+  cursor: pointer;
+}
+
+
+table .th-sort-asc::after {
+  margin-left: 0.5em;
+  content: "\25b4";
+}
+
+table .th-sort-desc::after {
+  margin-left: 0.5em;
+  content: "\25be";
+}
+
+table .th-sort-asc,
+table .th-sort-desc {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+tbody tr:nth-of-type(even) {
+  background: #eee;
+}
+
+tbody tr:hover {
+  background: #ccc;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+/* tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+} */

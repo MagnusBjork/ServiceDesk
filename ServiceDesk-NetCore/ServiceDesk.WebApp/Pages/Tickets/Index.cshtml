@@ -1,0 +1,38 @@
+﻿@page  
+@model IndexModel
+@section Scripts {
+     <script src="~/js/list-tickets.js"></script>
+}
+@{
+    ViewData["Title"] = "Ticket List";
+}
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Ticket #</th>
+          <th>Subject</th>
+          <th>Category</th>
+          <th>Severity</th>
+          <th>From</th>
+          <th>Created On</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var ticket in Model.Tickets)
+        {
+          <tr onclick="window.location='/tickets/details/@ticket.TicketId'">
+            <td>@ticket.TicketId</td>
+            <td>@ticket.Subject</td>
+            <td>@ticket.Category</td>
+            <td>@ticket.Severity</td>
+            <td>@ticket.From</td>
+            <td>@ticket.CreatedOn</td>
+            <td><a asp-page="/tickets/edit" asp-route-ID="@ticket.TicketId" ><i class="fa fa-edit fa-lg"></i></a></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  </section>

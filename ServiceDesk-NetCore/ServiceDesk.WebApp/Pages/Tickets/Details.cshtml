@@ -1,0 +1,67 @@
+﻿@page "{id}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Ticket Details";
+}
+<section>
+
+  <h2>Ticket #@Model.Ticket.TicketId - @Model.Ticket.Subject</h2>
+
+  <div class="form-area"> 
+
+    <p class="form-cell">
+      <label for="subject">Subject</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="registered">Registration Date</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="sender">Sender</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell form-cellspan">
+      <label for="description">Description</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="type">Type of Case</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="category">Category</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="severity">Severity</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="assigned-to">Assigned To</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+
+    <p class="form-cell">
+      <label for="">Last Updated</label>
+      <span>@Model.Ticket.Subject</span>
+    </p>
+ 
+  </div>
+
+  <div class="form-actions">
+      <a asp-page="/tickets/index" class="linkbutton btn-secondary"><i class="fa fa-chevron-left"></i>Back</a>
+      <a asp-page="/tickets/edit" class="button btn-primary"><i class="fa fa-edit"></i>Edit</a>
+  </div>
+
+
+
+
+</section>

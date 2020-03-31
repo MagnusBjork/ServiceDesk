@@ -1,0 +1,83 @@
+﻿@page "{id?}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Ticket";
+}
+
+<section>
+  <h2>Ticket #@Model.Ticket.TicketId - @Model.Ticket.Subject</h2>
+  
+  <form method="post">
+
+    <div class="form-area"> 
+
+      <p class="form-cell">
+        <label asp-for="Ticket.Subject"></label>
+        <input asp-for="Ticket.Subject" />
+        <span asp-validation-for="Ticket.Subject"></span>
+      </p>
+
+      <p class="form-cell">
+        <label for="registered">Registration Date</label>
+        <input type="text" name="registered" id="" />
+      </p>
+
+      <p class="form-cell">
+        <label for="sender">Sender</label>
+        <input type="text" name="sender" id="" />
+      </p>
+
+      <p class="form-cell form-cellspan">
+        <label for="description">Description</label>
+        <textarea name="description" id="" cols="70" rows="8"></textarea>
+      </p>
+
+      <p class="form-cell">
+        <label for="type">Category</label>
+        <select name="type" id="">
+          <option value="">Select Category...</option>
+          <option value="incident">Incident</option>
+          <option value="question">Question</option>
+          <option value="other">Other</option>
+        </select>
+      </p>
+
+      <p class="form-cell">
+        <label for="category">Sub Type</label>
+        <select name="category" id="">
+          <option value="">Select Sub Type...</option>
+          <option value="1">Type 1</option>
+          <option value="2">Type 2</option>
+          <option value="3">Type 3</option>
+        </select>
+      </p>
+
+      <p class="form-cell">
+        <label for="severity">Severity</label>
+        <select name="sriority" id="">
+          <option value="">Select Severity...</option>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </p>
+
+      <p class="form-cell">
+        <label for="assigned-to">Assigned To</label>
+        <input type="text" name="assigned-to" id="" />
+      </p>
+
+      <p class="form-cell">
+        <label for="">Last Updated</label>
+      </p>
+
+    </div>
+  
+    <div class="form-actions">
+      <a asp-page="/tickets/index" class="linkbutton btn-secondary"><i class="fa fa-times"></i>Cancel</a>
+      <button type="submit" class="button btn-primary"><i class="fa fa-floppy-o"></i>Save</button>
+    </div>
+
+  </form>
+
+</section>
