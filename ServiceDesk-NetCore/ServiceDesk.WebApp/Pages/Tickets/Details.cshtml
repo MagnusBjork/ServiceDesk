@@ -1,11 +1,11 @@
-﻿@page "{id}"
+﻿@page "{id:guid}"
 @model DetailsModel
 @{
     ViewData["Title"] = "Ticket Details";
 }
 <section>
 
-  <h2>Ticket #@Model.Ticket.TicketId - @Model.Ticket.Subject</h2>
+  <h2>Ticket #@Model.Ticket.TicketNumber - @Model.Ticket.Subject</h2>
 
   <div class="form-area"> 
 
@@ -26,32 +26,27 @@
 
     <p class="form-cell form-cellspan">
       <label for="description">Description</label>
-      <span>@Model.Ticket.Subject</span>
+      <span>@Model.Ticket.Description</span>
     </p>
-
-    <p class="form-cell">
-      <label for="type">Type of Case</label>
-      <span>@Model.Ticket.Subject</span>
-    </p>
-
+   
     <p class="form-cell">
       <label for="category">Category</label>
-      <span>@Model.Ticket.Subject</span>
+      <span>@Model.Ticket.Category</span>
     </p>
 
     <p class="form-cell">
       <label for="severity">Severity</label>
-      <span>@Model.Ticket.Subject</span>
+      <span>@Model.Ticket.Severity</span>
     </p>
 
     <p class="form-cell">
       <label for="assigned-to">Assigned To</label>
-      <span>@Model.Ticket.Subject</span>
+      <span> </span>
     </p>
 
     <p class="form-cell">
       <label for="">Last Updated</label>
-      <span>@Model.Ticket.Subject</span>
+      <span> </span>
     </p>
  
   </div>

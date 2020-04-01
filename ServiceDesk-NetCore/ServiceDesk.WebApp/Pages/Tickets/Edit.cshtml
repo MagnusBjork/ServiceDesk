@@ -1,11 +1,11 @@
-﻿@page "{id?}"
+﻿@page "{id:guid?}"
 @model EditModel
 @{
     ViewData["Title"] = "Edit Ticket";
 }
 
 <section>
-  <h2>Ticket #@Model.Ticket.TicketId - @Model.Ticket.Subject</h2>
+  <h2>Ticket #@Model.Ticket.TicketNumber - @Model.Ticket.Subject</h2>
   
   <form method="post">
 
@@ -29,7 +29,7 @@
 
       <p class="form-cell form-cellspan">
         <label for="description">Description</label>
-        <textarea name="description" id="" cols="70" rows="8"></textarea>
+        <textarea name="description" id="" cols="70" rows="8">@Model.Ticket.Description</textarea>
       </p>
 
       <p class="form-cell">

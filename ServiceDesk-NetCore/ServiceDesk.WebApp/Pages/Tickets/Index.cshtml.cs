@@ -24,7 +24,8 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         {
             Tickets = new List<TicketViewModel>() {
                 new TicketViewModel() {
-                    TicketId = 1,
+                    Id = Guid.Empty,
+                    TicketNumber = "1001",
                     Subject = "Request for new user",
                     Category = "Order",
                     Severity = "Low",
@@ -32,7 +33,8 @@ namespace ServiceDesk.WebApp.Pages.Tickets
                     CreatedOn = DateTime.Parse ("2020-03-25 12:01")
                 },
                 new TicketViewModel() {
-                    TicketId = 2,
+                    Id = Guid.Empty,
+                    TicketNumber = "1002",
                     Subject = "Bug on web",
                     Category = "Bug",
                     Severity = "Medium",
@@ -40,7 +42,8 @@ namespace ServiceDesk.WebApp.Pages.Tickets
                     CreatedOn = DateTime.Parse ("2020-03-05 07:14")
                 },
                 new TicketViewModel() {
-                    TicketId = 3,
+                    Id = Guid.Empty,
+                    TicketNumber = "1003",
                     Subject = "Need for additional telephone field",
                     Category = "Requirement",
                     Severity = "Low",

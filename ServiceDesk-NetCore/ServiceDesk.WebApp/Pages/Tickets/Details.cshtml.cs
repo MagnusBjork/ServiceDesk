@@ -5,26 +5,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ServiceDesk.WebApp.Domain;
+using ServiceDesk.WebApp.Repositories;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
 {
     public class DetailsModel : PageModel
     {
+        private readonly ITicketRepository _ticketRepository;
         private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(ILogger<DetailsModel> logger)
+        public DetailsModel(ITicketRepository ticketRepository, ILogger<DetailsModel> logger)
         {
+            _ticketRepository = ticketRepository;
             _logger = logger;
-            // Test change...
         }
 
         public TicketViewModel Ticket { get; private set; }
 
-        public void OnGet(int id)
+        public async Task OnGet(Guid id)
         {
-            Ticket = new TicketViewModel();
-            Ticket.TicketId = id;
-            Ticket.Subject = "Detta är ett test";
+            var ticketEntity = await _ticketRepository.GetAsync(id);
+            this.Ticket = new TicketViewModel(ticketEntity);
         }
     }
 }
