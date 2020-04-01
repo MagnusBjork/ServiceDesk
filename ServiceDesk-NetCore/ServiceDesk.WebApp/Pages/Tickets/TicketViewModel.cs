@@ -15,6 +15,8 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         public string Category { get; set; }
         public string Severity { get; set; }
         public string From { get; set; }
+
+        [Display(Name = "Registration Date")]
         public DateTime CreatedOn { get; set; }
 
         public TicketViewModel() { }

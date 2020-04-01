@@ -18,13 +18,15 @@
       </p>
 
       <p class="form-cell">
-        <label for="registered">Registration Date</label>
-        <input type="text" name="registered" id="" />
+        <label asp-for="Ticket.CreatedOn"></label>
+        <input asp-for="Ticket.CreatedOn" />
+        <span asp-validation-for="Ticket.CreatedOn"></span>
       </p>
 
       <p class="form-cell">
-        <label for="sender">Sender</label>
-        <input type="text" name="sender" id="" />
+        <label asp-for="Ticket.From"></label>
+        <input asp-for="Ticket.From" />
+        <span asp-validation-for="Ticket.CreatedOn"></span>
       </p>
 
       <p class="form-cell form-cellspan">

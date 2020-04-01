@@ -11,7 +11,8 @@ namespace ServiceDesk.WebApp.Services
 {
     public interface IRepositoryService<T>
     {
-        Task<string> GetAsync(Guid id);
+        Task<T> GetAsync(Guid id);
+        Task<IEnumerable<T>> GetAllAsync();
         Task<Guid> CreateAsync(T entity);
         Task UpdateAsync(T entity);
     }
@@ -26,24 +27,39 @@ namespace ServiceDesk.WebApp.Services
         public FileRepositoryService()
         {
             _options = new JsonSerializerOptions
+
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             };
         }
 
-        private string FileUri(Guid id) => $@"{_rootFolder}\{id}.json";
+        private string FolderPath() => $@"{_rootFolder}\{typeof(T).Name}";
+        private string FileUri(Guid id) => $@"{FolderPath()}\{id}.json";
 
-        public async Task<string> GetAsync(Guid id)
+        public async Task<T> GetAsync(Guid id)
         {
             if (File.Exists(FileUri(id)))
             {
-                //string json = await File.ReadAllTextAsync (fileUri);
-                //return JObject.Parse (json);
-                return await File.ReadAllTextAsync(FileUri(id));
+                string json = await File.ReadAllTextAsync(FileUri(id));
+                return JsonSerializer.Deserialize<T>(json, _options);
             }
             else
                 throw new FileNotFoundException();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            var entities = new List<T>();
+
+            foreach (string fileName in Directory.GetFiles(FolderPath()))
+            {
+                string json = await File.ReadAllTextAsync(fileName);
+                T entity = JsonSerializer.Deserialize<T>(json, _options);
+                entities.Add(entity);
+            }
+
+            return entities;
         }
 
         public async Task<Guid> CreateAsync(T entity)
@@ -60,10 +76,7 @@ namespace ServiceDesk.WebApp.Services
         {
             string jsonData = JsonSerializer.Serialize(entity, _options);
             await File.WriteAllTextAsync(FileUri(entity.Id), jsonData);
-
         }
-
-
 
     }
 }

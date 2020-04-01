@@ -8,11 +8,11 @@ namespace ServiceDesk.WebApp.Repositories
 {
     public interface ITicketRepository
     {
+        Task<Ticket> GetAsync(Guid id);
+        Task<IEnumerable<Ticket>> GetAllAsync();
+        void Update(Ticket ticket);
         Task<Guid> CreateAsync(Ticket ticket);
         void Delete(Guid id);
-        Task<Ticket> GetAsync(Guid id);
-        IList<Ticket> GetAll();
-        void Update(Ticket ticket);
     }
 
     public class TicketRepository : ITicketRepository
@@ -26,15 +26,12 @@ namespace ServiceDesk.WebApp.Repositories
 
         public async Task<Ticket> GetAsync(Guid id)
         {
-            string json = await _repositoryService.GetAsync(id);
-
-
-            return new Ticket() { Id = id, TicketNumber = "10001", Subject = "Ticket from repo", CreatedOn = System.DateTime.Now };
+            return await _repositoryService.GetAsync(id);
         }
 
-        public IList<Ticket> GetAll()
+        public async Task<IEnumerable<Ticket>> GetAllAsync()
         {
-            return new List<Ticket>();
+            return await _repositoryService.GetAllAsync();
         }
 
         public async Task<Guid> CreateAsync(Ticket ticket)
