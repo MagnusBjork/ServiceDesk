@@ -30,6 +30,7 @@ namespace ServiceDesk.WebApp
             services.AddScoped<ITicketNumberService, TicketNumberService>();
 
             services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
+            services.AddSingleton<IOptionSetService, OptionSetService>();
 
         }
 

@@ -8,6 +8,7 @@ namespace ServiceDesk.WebApp.Services
     {
         Task<T> GetAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetSingleAsync();
         Task<Guid> CreateAsync(T entity);
         Task UpdateAsync(T entity);
     }

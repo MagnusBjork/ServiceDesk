@@ -31,10 +31,10 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         public string AssignedTo { get; set; }
 
         [Display(Name = "Registration Date")]
-        public DateTime CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
         [Display(Name = "Last Updated")]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         public TicketViewModel() { }
 

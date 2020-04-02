@@ -10,7 +10,7 @@ namespace ServiceDesk.WebApp.Repositories
     {
         Task<Ticket> GetTicketAsync(Guid id);
         Task<IEnumerable<Ticket>> GetAllTicketsAsync();
-        Task UpdateTicketAsync(Ticket ticket);
+        Task UpdateTicketAsync(Guid id, Ticket ticket);
         Task<Guid> CreateTicketAsync(Ticket ticket);
         Task DeleteTicketAsync(Guid id);
     }
@@ -39,17 +39,17 @@ namespace ServiceDesk.WebApp.Repositories
         public async Task<Guid> CreateTicketAsync(Ticket ticket)
         {
             ticket.Id = Guid.NewGuid();
-            ticket.TicketNumber = await _ticketNumberService.RetrieveNewTicketNumberAsync();
+            ticket.TicketNumber = await _ticketNumberService.GenerateTicketNumberAsync();
             ticket.CreatedOn = DateTime.Now;
             ticket.ModifiedOn = ticket.CreatedOn;
 
             return await _repository.CreateAsync(ticket);
         }
 
-        public async Task UpdateTicketAsync(Ticket ticket)
+        public async Task UpdateTicketAsync(Guid id, Ticket ticket)
         {
             // Måste hämta entiteten först eftersom vissa fält inte får uppdateras
-            var current = await _repository.GetAsync(ticket.Id);
+            var current = await _repository.GetAsync(id);
             ticket.Id = current.Id;
             ticket.TicketNumber = current.TicketNumber;
             ticket.CreatedOn = current.CreatedOn;

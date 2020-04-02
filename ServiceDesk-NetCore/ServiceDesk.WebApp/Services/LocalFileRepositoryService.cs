@@ -58,6 +58,21 @@ namespace ServiceDesk.WebApp.Services
             return entities;
         }
 
+        public async Task<T> GetSingleAsync()
+        {
+            var files = Directory.GetFiles(FolderPath());
+            if (files.Length == 0)
+                return default(T);
+
+            if (files.Length > 1)
+                throw new Exception("Only one item allowed!");
+
+            string json = await File.ReadAllTextAsync(files[0]);
+            return JsonSerializer.Deserialize<T>(json, _options);
+        }
+
+
+
         public async Task<Guid> CreateAsync(T entity)
         {
             string jsonData = JsonSerializer.Serialize(entity, _options);

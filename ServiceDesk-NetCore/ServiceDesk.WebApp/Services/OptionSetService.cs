@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-
-    public enum EnumOptionSets
+    public enum EnumOptionSet
     {
         TicketCategory = 100,
         TicketServerity = 101,
@@ -15,62 +13,53 @@ namespace ServiceDesk.WebApp.Services
 
     public class OptionSet
     {
-        public string Id { get; set; }
-
+        public EnumOptionSet Id { get; set; }
         public string Name { get; set; }
-
-        public List<OptionSetValue> Values { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime ModifiedOn { get; set; }
+        public IList<OptionSetValue> Values { get; set; }
     }
-
 
     public class OptionSetValue
     {
         public string Value { get; set; }
-
         public string Text { get; set; }
-
+        public bool Enabled { get; set; }
     }
 
-    public class OptionSetService
+    public interface IOptionSetService
     {
+        IList<OptionSetValue> GetOptionSetValues(EnumOptionSet optionSet);
+    }
+
+    public class OptionSetService : IOptionSetService
+    {
+        // OptionSet values are hard coded for now. Later on an admin view will be developed to let admin 
+        // create and edit optionsets in the app.
 
         private readonly IList<OptionSet> _optionSets = new List<OptionSet>() {
             new OptionSet() {
-                Id = EnumOptionSets.TicketCategory.ToString(),
+                Id = EnumOptionSet.TicketCategory,
                 Name = "Ticket Categories",
                 Values = new List<OptionSetValue>() {
-                    new OptionSetValue() { Value = "1000", Text = "Order"},
-                    new OptionSetValue() { Value = "1001", Text = "Bug"},
-                    new OptionSetValue() { Value = "1002", Text = "User Admin"},
-                    new OptionSetValue() { Value = "1003", Text = "Requirement"}},
-                CreatedOn = DateTime.Now,
-                ModifiedOn= DateTime.Now
+                    new OptionSetValue() { Value = "1000", Text = "Order", Enabled = true},
+                    new OptionSetValue() { Value = "1001", Text = "Bug", Enabled = true},
+                    new OptionSetValue() { Value = "1002", Text = "User Admin", Enabled = true},
+                    new OptionSetValue() { Value = "1003", Text = "Requirement", Enabled = true}}
+
             },
             { new OptionSet() {
-                Id = EnumOptionSets.TicketCategory.ToString(),
+                Id = EnumOptionSet.TicketServerity,
                 Name = "Ticket Serverity",
                 Values = new List<OptionSetValue>() {
-                    new OptionSetValue() { Value = "1100", Text = "Low"},
-                    new OptionSetValue() { Value = "1101", Text = "Medium"},
-                    new OptionSetValue() { Value = "1102", Text = "High"}},
-                CreatedOn = DateTime.Now,
-                ModifiedOn= DateTime.Now
+                    new OptionSetValue() { Value = "1100", Text = "Low", Enabled = true},
+                    new OptionSetValue() { Value = "1101", Text = "Medium", Enabled = true},
+                    new OptionSetValue() { Value = "1102", Text = "High", Enabled = true}}
+
             }}
           };
 
-        public OptionSetService() { }
-
-        public OptionSet GetOptionSet(EnumOptionSets optionSet)
+        public IList<OptionSetValue> GetOptionSetValues(EnumOptionSet optionSet)
         {
-            return _optionSets.Where(o => o.Id.Equals(optionSet)).SingleOrDefault();
+            return _optionSets.Where(o => o.Id.Equals(optionSet)).SingleOrDefault().Values;
         }
-
-
-
     }
 }
-

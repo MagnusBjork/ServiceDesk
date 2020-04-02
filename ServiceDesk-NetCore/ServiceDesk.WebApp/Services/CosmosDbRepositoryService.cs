@@ -41,5 +41,10 @@ namespace ServiceDesk.WebApp.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<T> GetSingleAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

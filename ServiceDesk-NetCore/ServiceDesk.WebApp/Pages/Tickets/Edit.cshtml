@@ -36,18 +36,16 @@
 
       <p class="form-cell">
         <label asp-for="Ticket.Category"></label>
-        <select asp-for="Ticket.Category" asp-items="Model.Categories">
+        <select asp-for="Ticket.Category" asp-items="Model.CategoryList">
           <option value="">Select Category...</option>
         </select>
       </p>
 
       <p class="form-cell">
         <label asp-for="Ticket.Severity"></label>
-        <select name="sriority" id="">
+         <select asp-for="Ticket.Severity" asp-items="Model.SeverityList">
           <option value="">Select Severity...</option>
-          <option value="1">Low</option>
-          <option value="2">Medium</option>
-          <option value="3">High</option>
+          
         </select>
       </p>
 

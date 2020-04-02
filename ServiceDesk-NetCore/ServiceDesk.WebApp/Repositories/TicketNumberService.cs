@@ -9,7 +9,7 @@ namespace ServiceDesk.WebApp.Repositories
 {
     public interface ITicketNumberService
     {
-        Task<string> RetrieveNewTicketNumberAsync();
+        Task<string> GenerateTicketNumberAsync();
     }
 
     public class TicketNumberService : ITicketNumberService
@@ -21,24 +21,30 @@ namespace ServiceDesk.WebApp.Repositories
             _repository = repository;
         }
 
-        public async Task<string> RetrieveNewTicketNumberAsync()
+        public async Task<string> GenerateTicketNumberAsync()
         {
-            var entities = await _repository.GetAllAsync();
-            var ticketNumber = entities.SingleOrDefault();
+            var current = await _repository.GetSingleAsync();
 
-            if (ticketNumber is null)
+            if (current is null)
             {
-                ticketNumber = new TicketNumber();
-                ticketNumber.Id = Guid.NewGuid();
-                ticketNumber.CreatedOn = DateTime.Now;
+                // Create a new ticket number counter if it doesn't exists.
+                var newTicketNumber = new TicketNumber();
+                await _repository.CreateAsync(newTicketNumber);
+
+                // Return ticket number string.
+                return newTicketNumber.GetTicketNumber();
+            }
+            else
+            {
+                // Load current and step up counter and update.
+                var newTicketNumber = new TicketNumber(current);
+                newTicketNumber.GenerateNewTicketNumber();
+                await _repository.UpdateAsync(newTicketNumber);
+
+                // Return ticket number string.
+                return newTicketNumber.GetTicketNumber();
             }
 
-            string newTicketNumber = ticketNumber.GenerateNewTicketNumber();
-            ticketNumber.ModifiedOn = DateTime.Now;
-
-            await _repository.UpdateAsync(ticketNumber);
-
-            return newTicketNumber;
         }
     }
 }
