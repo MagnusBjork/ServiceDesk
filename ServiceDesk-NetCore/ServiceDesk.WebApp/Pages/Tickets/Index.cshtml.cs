@@ -25,7 +25,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
         public async Task OnGetAsync()
         {
-            var tickets = await _ticketRepository.GetAllAsync();
+            var tickets = await _ticketRepository.GetAllTicketsAsync();
 
             Tickets = tickets.Select(t => new TicketViewModel(t));
 

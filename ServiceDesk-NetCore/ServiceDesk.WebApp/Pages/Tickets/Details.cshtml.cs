@@ -24,7 +24,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
         public async Task OnGet(Guid id)
         {
-            var ticketEntity = await _ticketRepository.GetAsync(id);
+            var ticketEntity = await _ticketRepository.GetTicketAsync(id);
             this.Ticket = new TicketViewModel(ticketEntity);
         }
     }

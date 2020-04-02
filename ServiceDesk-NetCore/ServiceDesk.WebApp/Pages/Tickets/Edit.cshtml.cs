@@ -30,7 +30,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
                 Ticket = new TicketViewModel();
             else
             {
-                var ticketEntity = await _ticketRepository.GetAsync(id);
+                var ticketEntity = await _ticketRepository.GetTicketAsync(id);
                 Ticket = new TicketViewModel(ticketEntity);
             }
         }
@@ -40,8 +40,8 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             if (!ModelState.IsValid)
                 return Page();
 
+            // Map fields that can be created/updated from UI
             var ticketEntity = new Ticket();
-            ticketEntity.Id = Ticket.Id;
             ticketEntity.Subject = Ticket.Subject;
             ticketEntity.Description = Ticket.Description;
             ticketEntity.Category = Ticket.Category;
@@ -49,15 +49,11 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             ticketEntity.From = Ticket.From;
 
             if (Ticket.Id.Equals(Guid.Empty))
-            {
-                var id = await _ticketRepository.CreateAsync(ticketEntity);
-            }
+                Ticket.Id = await _ticketRepository.CreateTicketAsync(ticketEntity);
             else
-            {
-                _ticketRepository.Update(ticketEntity);
-            }
+                await _ticketRepository.UpdateTicketAsync(ticketEntity);
 
-            // Här behöver jag id:t tillbaka.
+            // Här behöver jag id:t tillbaka. Ticket.Id
             return RedirectToPage();
         }
     }

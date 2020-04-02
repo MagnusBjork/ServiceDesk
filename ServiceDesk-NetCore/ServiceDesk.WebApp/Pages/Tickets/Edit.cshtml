@@ -25,8 +25,7 @@
 
       <p class="form-cell">
         <label asp-for="Ticket.From"></label>
-        <input asp-for="Ticket.From" />
-        <span asp-validation-for="Ticket.CreatedOn"></span>
+        <span>@Model.Ticket.CreatedOn</span>
       </p>
 
       <p class="form-cell form-cellspan">

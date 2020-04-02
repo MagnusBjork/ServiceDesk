@@ -27,8 +27,9 @@ namespace ServiceDesk.WebApp
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ITicketNumberService, TicketNumberService>();
 
-            services.AddSingleton(typeof(IRepositoryService<>), typeof(FileRepositoryService<>));
+            services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericFileSystemRepository<>));
 
         }
 

@@ -9,22 +9,14 @@ using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public interface IRepositoryService<T>
-    {
-        Task<T> GetAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<Guid> CreateAsync(T entity);
-        Task UpdateAsync(T entity);
-    }
-
-    public class FileRepositoryService<T> : IRepositoryService<T> where T : IDomainEntity
+    public class GenericFileSystemRepository<T> : IGenericRepository<T> where T : IDomainEntity
     {
         private static readonly string _rootFolder = @"C:\temp\_tempRepository";
 
         private JsonSerializerOptions _options;
 
 
-        public FileRepositoryService()
+        public GenericFileSystemRepository()
         {
             _options = new JsonSerializerOptions
 
@@ -64,8 +56,6 @@ namespace ServiceDesk.WebApp.Services
 
         public async Task<Guid> CreateAsync(T entity)
         {
-            entity.Id = Guid.NewGuid();
-
             string jsonData = JsonSerializer.Serialize(entity, _options);
             await File.WriteAllTextAsync(FileUri(entity.Id), jsonData);
 
@@ -77,6 +67,9 @@ namespace ServiceDesk.WebApp.Services
             string jsonData = JsonSerializer.Serialize(entity, _options);
             await File.WriteAllTextAsync(FileUri(entity.Id), jsonData);
         }
+
+
+
 
     }
 }
