@@ -42,6 +42,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
             // Map fields that can be created/updated from UI
             var ticketEntity = new Ticket();
+            ticketEntity.Id = Ticket.Id;
             ticketEntity.Subject = Ticket.Subject;
             ticketEntity.Description = Ticket.Description;
             ticketEntity.Category = Ticket.Category;
@@ -53,8 +54,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             else
                 await _ticketRepository.UpdateTicketAsync(ticketEntity);
 
-            // Här behöver jag id:t tillbaka. Ticket.Id
-            return RedirectToPage();
+            return RedirectToPage("/tickets/index");
         }
     }
 }

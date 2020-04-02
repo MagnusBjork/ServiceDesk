@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public interface IGenericRepository<T>
+    public interface IRepositoryService<T>
     {
         Task<T> GetAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();

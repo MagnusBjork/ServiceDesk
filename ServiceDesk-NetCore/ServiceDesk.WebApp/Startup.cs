@@ -29,7 +29,7 @@ namespace ServiceDesk.WebApp
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketNumberService, TicketNumberService>();
 
-            services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericFileSystemRepository<>));
+            services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
 
         }
 

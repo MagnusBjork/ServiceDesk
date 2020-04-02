@@ -8,6 +8,8 @@
   <h2>Ticket #@Model.Ticket.TicketNumber - @Model.Ticket.Subject</h2>
   
   <form method="post">
+    
+    <input asp-for="Ticket.Id" type="hidden" />
 
     <div class="form-area"> 
 
@@ -19,22 +21,21 @@
 
       <p class="form-cell">
         <label asp-for="Ticket.CreatedOn"></label>
-        <input asp-for="Ticket.CreatedOn" />
-        <span asp-validation-for="Ticket.CreatedOn"></span>
+        <span>@Model.Ticket.CreatedOn</span>
       </p>
 
       <p class="form-cell">
         <label asp-for="Ticket.From"></label>
-        <span>@Model.Ticket.CreatedOn</span>
+        <input asp-for="Ticket.From" />
       </p>
 
       <p class="form-cell form-cellspan">
-        <label for="description">Description</label>
+        <label asp-for="Ticket.Description"></label>
         <textarea name="description" id="" cols="70" rows="8">@Model.Ticket.Description</textarea>
       </p>
 
       <p class="form-cell">
-        <label for="type">Category</label>
+        <label asp-for="Ticket.Category"></label>
         <select name="type" id="">
           <option value="">Select Category...</option>
           <option value="incident">Incident</option>
@@ -44,17 +45,7 @@
       </p>
 
       <p class="form-cell">
-        <label for="category">Sub Type</label>
-        <select name="category" id="">
-          <option value="">Select Sub Type...</option>
-          <option value="1">Type 1</option>
-          <option value="2">Type 2</option>
-          <option value="3">Type 3</option>
-        </select>
-      </p>
-
-      <p class="form-cell">
-        <label for="severity">Severity</label>
+        <label asp-for="Ticket.Severity"></label>
         <select name="sriority" id="">
           <option value="">Select Severity...</option>
           <option value="1">Low</option>
@@ -64,12 +55,18 @@
       </p>
 
       <p class="form-cell">
-        <label for="assigned-to">Assigned To</label>
-        <input type="text" name="assigned-to" id="" />
+        <label asp-for="Ticket.AssignedTo"></label>
+        <select name="sriority" id="">
+          <option value="">Select User to assign</option>
+          <option value="1">Kalle</option>
+          <option value="2">Pelle</option>
+          <option value="3">Fia</option>
+        </select>
       </p>
 
       <p class="form-cell">
-        <label for="">Last Updated</label>
+        <label asp-for="Ticket.ModifiedOn"></label>
+        <span>@Model.Ticket.ModifiedOn</span>
       </p>
 
     </div>

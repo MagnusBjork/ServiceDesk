@@ -17,10 +17,10 @@ namespace ServiceDesk.WebApp.Repositories
 
     public class TicketRepository : ITicketRepository
     {
-        private readonly IGenericRepository<Ticket> _repository;
+        private readonly IRepositoryService<Ticket> _repository;
         private readonly ITicketNumberService _ticketNumberService;
 
-        public TicketRepository(IGenericRepository<Ticket> repository, ITicketNumberService ticketNumberService)
+        public TicketRepository(IRepositoryService<Ticket> repository, ITicketNumberService ticketNumberService)
         {
             _repository = repository;
             _ticketNumberService = ticketNumberService;

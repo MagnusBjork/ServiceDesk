@@ -5,19 +5,23 @@ using System.IO;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public class GenericFileSystemRepository<T> : IGenericRepository<T> where T : IDomainEntity
+    public class LocalFileRepositoryService<T> : IRepositoryService<T> where T : IDomainEntity
     {
-        private static readonly string _rootFolder = @"C:\temp\_tempRepository";
+        // private static readonly string _rootFolder = @"C:\temp\_tempRepository";
+        private readonly IConfiguration _configuration;
 
         private JsonSerializerOptions _options;
 
 
-        public GenericFileSystemRepository()
+        public LocalFileRepositoryService(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             _options = new JsonSerializerOptions
 
             {
@@ -26,7 +30,7 @@ namespace ServiceDesk.WebApp.Services
             };
         }
 
-        private string FolderPath() => $@"{_rootFolder}\{typeof(T).Name}";
+        private string FolderPath() => $@"{_configuration["LocalFileRepositoryService:RootFolder"]}\{typeof(T).Name}";
         private string FileUri(Guid id) => $@"{FolderPath()}\{id}.json";
 
         public async Task<T> GetAsync(Guid id)

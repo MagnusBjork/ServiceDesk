@@ -6,12 +6,12 @@ using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public class GenericCosmosDbRepository<T> : IGenericRepository<T> where T : IDomainEntity
+    public class CosmosDbRepositoryService<T> : IRepositoryService<T> where T : IDomainEntity
     {
         private JsonSerializerOptions _options;
 
 
-        public GenericCosmosDbRepository()
+        public CosmosDbRepositoryService()
         {
             _options = new JsonSerializerOptions
 
