@@ -18,7 +18,6 @@ namespace ServiceDesk.WebApp.Pages
         {
             _logger = logger;
             _env = env;
-
         }
 
         public void OnGet()

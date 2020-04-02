@@ -29,34 +29,6 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
             Tickets = tickets.Select(t => new TicketViewModel(t));
 
-            // Tickets = new List<TicketViewModel>() {
-            //     new TicketViewModel() {
-            //         Id = Guid.Empty,
-            //         TicketNumber = "1001",
-            //         Subject = "Request for new user",
-            //         Category = "Order",
-            //         Severity = "Low",
-            //         From = "kalle.kula@test.com",
-            //         CreatedOn = DateTime.Parse ("2020-03-25 12:01")
-            //     },
-            //     new TicketViewModel() {
-            //         Id = Guid.Empty,
-            //         TicketNumber = "1002",
-            //         Subject = "Bug on web",
-            //         Category = "Bug",
-            //         Severity = "Medium",
-            //         From = "nisse.nilsson@test.com",
-            //         CreatedOn = DateTime.Parse ("2020-03-05 07:14")
-            //     },
-            //     new TicketViewModel() {
-            //         Id = Guid.Empty,
-            //         TicketNumber = "1003",
-            //         Subject = "Need for additional telephone field",
-            //         Category = "Requirement",
-            //         Severity = "Low",
-            //         From = "nisse.nilsson@test.com",
-            //         CreatedOn = DateTime.Parse ("2020-03-25 15:11")
-            //     }};
         }
     }
 }

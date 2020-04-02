@@ -36,11 +36,8 @@
 
       <p class="form-cell">
         <label asp-for="Ticket.Category"></label>
-        <select name="type" id="">
+        <select asp-for="Ticket.Category" asp-items="Model.Categories">
           <option value="">Select Category...</option>
-          <option value="incident">Incident</option>
-          <option value="question">Question</option>
-          <option value="other">Other</option>
         </select>
       </p>
 

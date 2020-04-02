@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ServiceDesk.WebApp.Domain;
 using ServiceDesk.WebApp.Repositories;
@@ -24,8 +25,20 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         [BindProperty]
         public TicketViewModel Ticket { get; set; }
 
+        public List<SelectListItem> Categories { get; set; }
+
         public async Task OnGetAsync(Guid id)
         {
+
+
+
+            Categories = new List<SelectListItem>() {
+                new SelectListItem() { Text = "Order", Value = "1000"  } ,
+                new SelectListItem() { Text = "Bug", Value = "1001"  } ,
+                new SelectListItem() { Text = "User Admin", Value = "1002", Disabled=true } ,
+                new SelectListItem() { Text = "Requirement", Value = "1003", }};
+
+
             if (id.Equals(Guid.Empty))
                 Ticket = new TicketViewModel();
             else
