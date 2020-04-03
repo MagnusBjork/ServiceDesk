@@ -45,8 +45,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             Subject = ticket.Subject;
             Description = ticket.Description;
             Category = ticket.Category;
-            Severity = ticket.Subject;
+            Severity = ticket.Severity;
             From = ticket.From;
+            AssignedTo = ticket.AssignedTo;
             CreatedOn = ticket.CreatedOn;
             ModifiedOn = ticket.ModifiedOn;
         }
