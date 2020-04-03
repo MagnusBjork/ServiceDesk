@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ServiceDesk.WebApp.Repositories;
 using ServiceDesk.WebApp.Services;
+using ServiceDesk.WebApp.Services.DomainRepositories;
 
 namespace ServiceDesk.WebApp
 {
@@ -27,11 +27,11 @@ namespace ServiceDesk.WebApp
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITicketNumberService, TicketNumberService>();
 
             services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
             services.AddSingleton<IOptionSetService, OptionSetService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

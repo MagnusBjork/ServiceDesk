@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ServiceDesk.WebApp.Repositories;
+using ServiceDesk.WebApp.Services.DomainRepositories;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
 {

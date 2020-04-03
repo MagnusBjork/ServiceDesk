@@ -12,17 +12,15 @@ namespace ServiceDesk.WebApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly IWebHostEnvironment _env;
 
-        public IndexModel(ILogger<IndexModel> logger, IWebHostEnvironment env)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            _env = env;
         }
 
         public void OnGet()
         {
-            string myEnv = _env.EnvironmentName;
+
         }
     }
 }

@@ -7,20 +7,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ServiceDesk.WebApp.Domain;
-using ServiceDesk.WebApp.Repositories;
 using ServiceDesk.WebApp.Services;
+using ServiceDesk.WebApp.Services.DomainRepositories;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
 {
     public class EditModel : PageModel
     {
         private readonly ITicketRepository _ticketRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IOptionSetService _optionSetService;
         private readonly ILogger<EditModel> _logger;
 
-        public EditModel(ITicketRepository ticketRepository, IOptionSetService optionSetService, ILogger<EditModel> logger)
+        public EditModel(ITicketRepository ticketRepository, IUserRepository userRepository, IOptionSetService optionSetService, ILogger<EditModel> logger)
         {
             _ticketRepository = ticketRepository;
+            _userRepository = userRepository;
             _optionSetService = optionSetService;
             _logger = logger;
         }
@@ -32,11 +34,13 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
         public List<SelectListItem> SeverityList { get; set; }
 
+        public List<SelectListItem> UserList { get; set; }
+
         public async Task OnGetAsync(Guid id)
         {
             CategoryList = _optionSetService.GetOptionSetValues(EnumOptionSet.TicketCategory).ToSelectedItems();
-
             SeverityList = _optionSetService.GetOptionSetValues(EnumOptionSet.TicketServerity).ToSelectedItems();
+            UserList = _userRepository.GetAllUsers().Select(u => new SelectListItem() { Text = u.Name, Value = u.Id.ToString() }).ToList();
 
             if (id.Equals(Guid.Empty))
                 Ticket = new TicketViewModel();
@@ -58,6 +62,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             ticketEntity.Description = Ticket.Description;
             ticketEntity.Category = Ticket.Category;
             ticketEntity.Severity = Ticket.Severity;
+            ticketEntity.AssignedTo = Ticket.AssignedTo;
             ticketEntity.From = Ticket.From;
 
             if (Ticket.Id.Equals(Guid.Empty))
@@ -66,6 +71,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
                 await _ticketRepository.UpdateTicketAsync(Ticket.Id, ticketEntity);
 
             return RedirectToPage("/tickets/index");
+
+
+
         }
     }
 }

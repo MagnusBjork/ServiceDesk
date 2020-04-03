@@ -5,7 +5,15 @@
 }
 
 <section>
-  <h2>Ticket #@Model.Ticket.TicketNumber - @Model.Ticket.Subject</h2>
+  @if (!Model.Ticket.Id.Equals(Guid.Empty))
+  {
+    <h2>Ticket #@Model.Ticket.TicketNumber - @Model.Ticket.Subject</h2>
+  }
+  else
+  {
+     <h2>New Ticket</h2>
+  }
+  
   
   <form method="post">
     
@@ -21,7 +29,7 @@
 
       <p class="form-cell">
         <label asp-for="Ticket.CreatedOn"></label>
-        <span>@Model.Ticket.CreatedOn</span>
+        <span>@(Model.Ticket.CreatedOn.Equals(DateTime.MinValue) ? "" : @Model.Ticket.CreatedOn.ToString("g"))</span>
       </p>
 
       <p class="form-cell">
@@ -31,7 +39,7 @@
 
       <p class="form-cell form-cellspan">
         <label asp-for="Ticket.Description"></label>
-        <textarea name="description" id="" cols="70" rows="8">@Model.Ticket.Description</textarea>
+        <textarea asp-for="Ticket.Description" cols="70" rows="8"></textarea>
       </p>
 
       <p class="form-cell">
@@ -45,23 +53,19 @@
         <label asp-for="Ticket.Severity"></label>
          <select asp-for="Ticket.Severity" asp-items="Model.SeverityList">
           <option value="">Select Severity...</option>
-          
         </select>
       </p>
 
       <p class="form-cell">
         <label asp-for="Ticket.AssignedTo"></label>
-        <select name="sriority" id="">
-          <option value="">Select User to assign</option>
-          <option value="1">Kalle</option>
-          <option value="2">Pelle</option>
-          <option value="3">Fia</option>
+         <select asp-for="Ticket.AssignedTo" asp-items="Model.UserList">
+          <option value="">Select User...</option>
         </select>
       </p>
 
       <p class="form-cell">
         <label asp-for="Ticket.ModifiedOn"></label>
-        <span>@Model.Ticket.ModifiedOn</span>
+        <span>@(Model.Ticket.ModifiedOn.Equals(DateTime.MinValue) ? "" : @Model.Ticket.ModifiedOn.ToString("g"))</span>
       </p>
 
     </div>

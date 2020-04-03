@@ -10,43 +10,43 @@
   <div class="form-area"> 
 
     <p class="form-cell">
-      <label for="subject">Subject</label>
+      <label asp-for="Ticket.Subject"></label>
       <span>@Model.Ticket.Subject</span>
     </p>
 
     <p class="form-cell">
-      <label for="registered">Registration Date</label>
-      <span>@Model.Ticket.Subject</span>
+      <label asp-for="Ticket.CreatedOn"></label>
+      <span>@(Model.Ticket.CreatedOn.Equals(DateTime.MinValue) ? "" : @Model.Ticket.CreatedOn.ToString("g"))</span>
     </p>
 
     <p class="form-cell">
-      <label for="sender">Sender</label>
-      <span>@Model.Ticket.Subject</span>
+      <label asp-for="Ticket.From"></label>
+      <span>@Model.Ticket.From</span>
     </p>
 
     <p class="form-cell form-cellspan">
-      <label for="description">Description</label>
+      <label asp-for="Ticket.Description"></label>
       <span>@Model.Ticket.Description</span>
     </p>
    
     <p class="form-cell">
-      <label for="category">Category</label>
+      <label asp-for="Ticket.Category"></label>
       <span>@Model.Ticket.Category</span>
     </p>
 
     <p class="form-cell">
-      <label for="severity">Severity</label>
+      <label asp-for="Ticket.Severity"></label>
       <span>@Model.Ticket.Severity</span>
     </p>
 
     <p class="form-cell">
-      <label for="assigned-to">Assigned To</label>
-      <span> </span>
+      <label asp-for="Ticket.AssignedTo"></label>
+      <span>@Model.Ticket.AssignedTo</span>
     </p>
 
     <p class="form-cell">
-      <label for="">Last Updated</label>
-      <span> </span>
+      <label asp-for="Ticket.ModifiedOn"></label>
+      <span>@(Model.Ticket.ModifiedOn.Equals(DateTime.MinValue) ? "" : @Model.Ticket.ModifiedOn.ToString("g"))</span>
     </p>
  
   </div>

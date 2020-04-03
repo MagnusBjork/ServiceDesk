@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ServiceDesk.WebApp.Domain;
 using ServiceDesk.WebApp.Services;
 
-namespace ServiceDesk.WebApp.Repositories
+namespace ServiceDesk.WebApp.Services.DomainRepositories
 {
     public interface ITicketRepository
     {

@@ -9,7 +9,7 @@ namespace ServiceDesk.WebApp.Domain
         public Guid Id { get; set; }
 
         [JsonPropertyName("counter")]
-        public int Counter { get; private set; }
+        public int Counter { get; set; }
 
         [JsonPropertyName("createdOn")]
         public DateTime CreatedOn { get; set; }
@@ -18,35 +18,29 @@ namespace ServiceDesk.WebApp.Domain
         public DateTime ModifiedOn { get; set; }
 
 
-        private const int _firstNumber = 1;
-
-        public TicketNumber()
+        public TicketNumber CreateNewTicketNumberCounter()
         {
-            // Create a new ticket number counter.
+            const int initialCounterValue = 1;
+
             Id = Guid.NewGuid();
-            Counter = _firstNumber;
+            Counter = initialCounterValue;
             CreatedOn = DateTime.Now;
             ModifiedOn = CreatedOn;
+
+            return this;
         }
 
-        public TicketNumber(TicketNumber current)
+        public TicketNumber CreateNextTicketNumber()
         {
-            // Load currnet ticket number counter.
-            Id = current.Id;
-            Counter = current.Counter;
-            CreatedOn = current.CreatedOn;
-            ModifiedOn = current.ModifiedOn;
-        }
-
-        public void GenerateNewTicketNumber()
-        {
-            // Step up counter
+            // Step up ticket counter
             Counter++;
             ModifiedOn = DateTime.Now;
+
+            return this;
         }
 
         // Ticket number can be formated as needed.
-        public string GetTicketNumber() => Counter.ToString();
+        public string GetTicketNumberString() => Counter.ToString();
 
     }
 }
