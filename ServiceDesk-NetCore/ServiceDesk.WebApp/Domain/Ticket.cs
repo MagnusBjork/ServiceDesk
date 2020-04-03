@@ -20,8 +20,14 @@ namespace ServiceDesk.WebApp.Domain
         [JsonPropertyName("category")]
         public string Category { get; set; }
 
+        [JsonPropertyName("categoryText")]
+        public string CategoryText { get; set; }
+
         [JsonPropertyName("severity")]
         public string Severity { get; set; }
+
+        [JsonPropertyName("severityText")]
+        public string SeverityText { get; set; }
 
         [JsonPropertyName("from")]
         public string From { get; set; }

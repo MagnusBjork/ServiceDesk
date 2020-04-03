@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
@@ -16,13 +17,20 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         public string Subject { get; set; }
 
         [Display(Name = "Description")]
+        [MaxLength(300)]
         public string Description { get; set; }
 
         [Display(Name = "Category")]
         public string Category { get; set; }
 
+        [Display(Name = "Category")]
+        public string CategoryText { get; set; }
+
         [Display(Name = "Severity")]
         public string Severity { get; set; }
+
+        [Display(Name = "Severity")]
+        public string SeverityText { get; set; }
 
         [Display(Name = "From")]
         public string From { get; set; }
@@ -45,7 +53,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             Subject = ticket.Subject;
             Description = ticket.Description;
             Category = ticket.Category;
+            CategoryText = ticket.CategoryText;
             Severity = ticket.Severity;
+            SeverityText = ticket.SeverityText;
             From = ticket.From;
             AssignedTo = ticket.AssignedTo;
             CreatedOn = ticket.CreatedOn;

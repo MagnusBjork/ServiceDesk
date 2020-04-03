@@ -61,7 +61,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             ticketEntity.Subject = Ticket.Subject;
             ticketEntity.Description = Ticket.Description;
             ticketEntity.Category = Ticket.Category;
+            ticketEntity.CategoryText = _optionSetService.GetOptionSetValueText(EnumOptionSet.TicketCategory, Ticket.Category);
             ticketEntity.Severity = Ticket.Severity;
+            ticketEntity.SeverityText = _optionSetService.GetOptionSetValueText(EnumOptionSet.TicketServerity, Ticket.Severity);
             ticketEntity.AssignedTo = Ticket.AssignedTo;
             ticketEntity.From = Ticket.From;
 

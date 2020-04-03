@@ -14,7 +14,7 @@ namespace ServiceDesk.WebApp
             return values.Select(o => new SelectListItem()
             {
                 Text = o.Text,
-                Value = o.Value,
+                Value = o.Key,
                 Disabled = !o.Enabled
             }).ToList();
         }

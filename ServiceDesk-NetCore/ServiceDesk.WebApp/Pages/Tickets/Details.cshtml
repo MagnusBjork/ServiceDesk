@@ -30,13 +30,13 @@
     </p>
    
     <p class="form-cell">
-      <label asp-for="Ticket.Category"></label>
-      <span>@Model.Ticket.Category</span>
+      <label asp-for="Ticket.CategoryText"></label>
+      <span>@Model.Ticket.CategoryText</span>
     </p>
 
     <p class="form-cell">
-      <label asp-for="Ticket.Severity"></label>
-      <span>@Model.Ticket.Severity</span>
+      <label asp-for="Ticket.SeverityText"></label>
+      <span>@Model.Ticket.SeverityText</span>
     </p>
 
     <p class="form-cell">
@@ -55,8 +55,5 @@
       <a asp-page="/tickets/index" class="linkbutton btn-secondary"><i class="fa fa-chevron-left"></i>Back</a>
       <a asp-page="/tickets/edit" asp-route-ID="@Model.Ticket.Id"  class="button btn-primary"><i class="fa fa-edit"></i>Edit</a>
   </div>
-
-
-
 
 </section>

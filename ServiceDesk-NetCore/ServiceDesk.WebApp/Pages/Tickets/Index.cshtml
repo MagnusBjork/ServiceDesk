@@ -15,6 +15,7 @@
           <th>Category</th>
           <th>Severity</th>
           <th>From</th>
+          <th>Assigned To</th>
           <th>Created On</th>
           <th>Edit</th>
         </tr>
@@ -25,9 +26,10 @@
           <tr onclick="window.location='/tickets/details/@ticket.Id'">
             <td>@ticket.TicketNumber</td>
             <td>@ticket.Subject</td>
-            <td>@ticket.Category</td>
-            <td>@ticket.Severity</td>
+            <td>@ticket.CategoryText</td>
+            <td>@ticket.SeverityText</td>
             <td>@ticket.From</td>
+            <td>@ticket.AssignedTo</td>
             <td>@ticket.CreatedOn</td>
             <td><a asp-page="/tickets/edit" asp-route-ID="@ticket.Id" ><i class="fa fa-edit fa-lg"></i></a></td>
           </tr>
