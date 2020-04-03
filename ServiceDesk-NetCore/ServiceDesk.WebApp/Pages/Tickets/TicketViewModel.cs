@@ -38,6 +38,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         [Display(Name = "Assigned To")]
         public string AssignedTo { get; set; }
 
+        [Display(Name = "Assigned To")]
+        public string AssignedToText { get; set; }
+
         [Display(Name = "Registration Date")]
         public DateTime CreatedOn { get; set; }
 

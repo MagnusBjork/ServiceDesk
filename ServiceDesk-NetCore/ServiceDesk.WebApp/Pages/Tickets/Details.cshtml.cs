@@ -12,11 +12,13 @@ namespace ServiceDesk.WebApp.Pages.Tickets
     public class DetailsModel : PageModel
     {
         private readonly ITicketRepository _ticketRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(ITicketRepository ticketRepository, ILogger<DetailsModel> logger)
+        public DetailsModel(ITicketRepository ticketRepository, IUserRepository userRepository, ILogger<DetailsModel> logger)
         {
             _ticketRepository = ticketRepository;
+            _userRepository = userRepository;
             _logger = logger;
         }
 
@@ -26,6 +28,10 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         {
             var ticketEntity = await _ticketRepository.GetTicketAsync(id);
             this.Ticket = new TicketViewModel(ticketEntity);
+
+            // Lookup related data: users name
+            if (!string.IsNullOrEmpty(ticketEntity.AssignedTo))
+                Ticket.AssignedToText = _userRepository.GetUserName(Guid.Parse(ticketEntity.AssignedTo));
         }
     }
 }

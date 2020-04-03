@@ -8,6 +8,7 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
     public interface IUserRepository
     {
         IList<User> GetAllUsers();
+        string GetUserName(Guid id);
     }
 
     public class UserRepository : IUserRepository
@@ -25,6 +26,11 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
         public IList<User> GetAllUsers()
         {
             return _users;
+        }
+
+        public string GetUserName(Guid id)
+        {
+            return _users.Where(u => u.Id.Equals(id)).Select(u => u.Name).SingleOrDefault();
         }
     }
 }
