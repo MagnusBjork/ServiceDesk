@@ -26,3 +26,15 @@ asideToggleElements.forEach(function (elem) {
         asideToggleStatus = !asideToggleStatus;
     });
 });
+
+
+
+const formMessage = document.querySelector(".form-message");
+if (getComputedStyle(formMessage).display == 'block') {
+    setTimeout(function () {
+        formMessage.style.opacity = '0';
+    }, 3000);
+    setTimeout(function () {
+        formMessage.style.display = 'none';
+    }, 5000);
+}

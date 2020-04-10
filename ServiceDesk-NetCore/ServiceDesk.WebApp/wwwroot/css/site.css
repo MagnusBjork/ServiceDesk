@@ -154,13 +154,16 @@ main label {
 }
 
 
+/* -------------------- Form message */
 
-.table {
-  overflow: scroll;
+.form-message {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #b3d6bb;
+  border-radius: 10px;
+  padding: 1em;
+  transition: opacity 2s;
 }
-
-
-
 
 /* -------------------- Form styling */
 
@@ -251,6 +254,16 @@ main label {
   background: #444;
 }
 
+.btn-list-edit {
+  font-size: 0.8rem;
+  background: #003379;
+}
+
+.btn-list-delete {
+  font-size: 0.8rem;
+  background: #980000;
+}
+
 
 
 
@@ -258,7 +271,7 @@ main label {
 /* -------------------- Table styling */
 
 table {
-  margin: 1em;
+  /* margin: 1em; */
   border-collapse: collapse;
   white-space: nowrap;
   font-size: 0.9em;
@@ -315,8 +328,3 @@ tbody tr:hover {
 tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
-
-/* tbody tr.active-row {
-  font-weight: bold;
-  color: #009879;
-} */

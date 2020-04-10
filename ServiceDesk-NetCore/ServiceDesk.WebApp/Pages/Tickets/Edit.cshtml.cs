@@ -27,6 +27,9 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             _logger = logger;
         }
 
+        [TempData]
+        public string Message { get; set; }
+
         [BindProperty]
         public TicketViewModel Ticket { get; set; }
 
@@ -68,14 +71,17 @@ namespace ServiceDesk.WebApp.Pages.Tickets
             ticketEntity.From = Ticket.From;
 
             if (Ticket.Id.Equals(Guid.Empty))
+            {
                 Ticket.Id = await _ticketRepository.CreateTicketAsync(ticketEntity);
+                Message = "Ticket created successfully!";
+            }
             else
+            {
                 await _ticketRepository.UpdateTicketAsync(Ticket.Id, ticketEntity);
+                Message = "Ticket updated successfully!";
+            }
 
             return RedirectToPage("/tickets/index");
-
-
-
         }
     }
 }

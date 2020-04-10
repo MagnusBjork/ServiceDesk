@@ -6,42 +6,47 @@
 @{
     ViewData["Title"] = "Ticket List";
 }
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+  <div class="form-message">
+    <p>@Model.Message</p>
+  </div>
+} 
+
   <section>
-    <div class="table">
 
-    <table>
-      <thead>
-        <tr>
-          <th>Ticket #</th>
-          <th>Subject</th>
-          <th>Category</th>
-          <th>Severity</th>
-          <th>From</th>
-          <th>Assigned To</th>
-          <th>Created On</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var ticket in Model.Tickets)
-        {
-          <tr onclick="window.location='/tickets/details/@ticket.Id'">
-            <td>@ticket.TicketNumber</td>
-            <td>@ticket.Subject</td>
-            <td>@ticket.CategoryText</td>
-            <td>@ticket.SeverityText</td>
-            <td>@ticket.From</td>
-            <td>@ticket.AssignedTo</td>
-            <td>@ticket.CreatedOn.ToString("g")</td>
-            <td><a asp-page="/tickets/edit" asp-route-ID="@ticket.Id" ><i class="fa fa-edit fa-lg"></i></a></td>
+    <form method="post">
+      <table>
+        <thead>
+          <tr>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].TicketNumber)</th>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].Subject)</th>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].Category)</th>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].Severity)</th>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].From)</th>
+            <th>@Html.DisplayNameFor(m => m.Tickets[0].CreatedOn)</th>
+            <th></th>
+            <th></th>
           </tr>
-        }
-      </tbody>
-    </table>
-
-    </div>
-
+        </thead>
+        <tbody>
+          @foreach (var ticket in Model.Tickets)
+          {
+            <tr onclick="window.location='/tickets/details/@ticket.Id'">
+              <td>@ticket.TicketNumber</td>
+              <td>@ticket.Subject</td>
+              <td>@ticket.CategoryText</td>
+              <td>@ticket.SeverityText</td>
+              <td>@ticket.From</td>
+              <td>@ticket.CreatedOn.ToString("g")</td>
+              <td><a asp-page="/tickets/edit" asp-route-id="@ticket.Id" class="button btn-list-edit"><i class="fa fa-edit fa-lg"></i>Edit</a></td>
+              <td><button asp-page-handler="Delete" asp-route-id="@ticket.Id" class="button btn-list-delete"><i class="fa fa-times"></i>Delete</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </form>
   </section>
 
-
-      
+ 

@@ -14,7 +14,10 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         private readonly ITicketRepository _ticketRepository;
         private readonly ILogger<EditModel> _logger;
 
-        public IEnumerable<TicketViewModel> Tickets { get; private set; }
+        [TempData]
+        public string Message { get; set; }
+
+        public IList<TicketViewModel> Tickets { get; private set; }
 
 
         public IndexModel(ITicketRepository ticketRepository, ILogger<EditModel> logger)
@@ -27,8 +30,16 @@ namespace ServiceDesk.WebApp.Pages.Tickets
         {
             var tickets = await _ticketRepository.GetAllTicketsAsync();
 
-            Tickets = tickets.Select(t => new TicketViewModel(t));
+            Tickets = tickets.Select(t => new TicketViewModel(t)).ToList();
+        }
 
+        public async Task<IActionResult> OnPostDeleteAsync(Guid id)
+        {
+            var itemToDelete = id;
+
+            Message = "Ticket deleted successfully!";
+
+            return RedirectToPage();
         }
     }
 }
