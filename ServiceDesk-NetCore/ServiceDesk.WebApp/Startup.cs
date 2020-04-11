@@ -30,7 +30,12 @@ namespace ServiceDesk.WebApp
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITicketNumberService, TicketNumberService>();
 
-            services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
+            //  services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
+            services.AddSingleton(typeof(IRepositoryService<>), typeof(CosmosDbRepositoryService<>));
+
+
+
+
             services.AddSingleton<IOptionSetService, OptionSetService>();
         }
 

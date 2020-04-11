@@ -35,7 +35,7 @@ namespace ServiceDesk.WebApp.Pages.Tickets
 
         public async Task<IActionResult> OnPostDeleteAsync(Guid id)
         {
-            var itemToDelete = id;
+            await _ticketRepository.DeleteTicketAsync(id);
 
             Message = "Ticket deleted successfully!";
 

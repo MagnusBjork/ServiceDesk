@@ -33,7 +33,7 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
 
         public async Task<IEnumerable<Ticket>> GetAllTicketsAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAllAsync("");
         }
 
         public async Task<Guid> CreateTicketAsync(Ticket ticket)
@@ -48,7 +48,7 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
 
         public async Task UpdateTicketAsync(Guid id, Ticket ticket)
         {
-            // Måste hämta entiteten först eftersom vissa fält inte får uppdateras
+            // First, get the current object and then overload only the properties that are allowed to be updated.
             var current = await _repository.GetAsync(id);
             ticket.Id = current.Id;
             ticket.TicketNumber = current.TicketNumber;
@@ -60,7 +60,7 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
 
         public async Task DeleteTicketAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _repository.DeleteAsync(id);
         }
     }
 }
