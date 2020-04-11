@@ -33,7 +33,9 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
 
         public async Task<IEnumerable<Ticket>> GetAllTicketsAsync()
         {
-            return await _repository.GetAllAsync("");
+            string queryString = "SELECT * FROM c";
+
+            return await _repository.GetAllAsync(queryString);
         }
 
         public async Task<Guid> CreateTicketAsync(Ticket ticket)

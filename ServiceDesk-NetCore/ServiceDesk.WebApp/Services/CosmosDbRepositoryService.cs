@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Azure.Cosmos;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ServiceDesk.WebApp.Domain;
@@ -18,12 +18,10 @@ namespace ServiceDesk.WebApp.Services
 
         private CosmosClient _cosmosClient;
 
-        // private Database _database;
+        private CosmosContainer _container;
 
-        private Container _container;
-
-        private string _databaseId = "ServiceDesk";
-        private string _containerId = "Tickets";
+        private readonly string _databaseId = "ServiceDesk";
+        private readonly string _containerId = typeof(T).Name;
 
 
         public CosmosDbRepositoryService(IConfiguration configuration, IWebHostEnvironment env)
@@ -43,8 +41,8 @@ namespace ServiceDesk.WebApp.Services
 
         private void Setup()
         {
-            Database database = _cosmosClient.CreateDatabaseIfNotExistsAsync(_databaseId).GetAwaiter().GetResult();
-            _container = database.CreateContainerIfNotExistsAsync(_containerId, "/id").GetAwaiter().GetResult();
+            var database = _cosmosClient.CreateDatabaseIfNotExistsAsync(_databaseId).GetAwaiter().GetResult();
+            _container = database.Database.CreateContainerIfNotExistsAsync(_containerId, "/id").GetAwaiter().GetResult();
         }
 
         public async Task<T> GetAsync(Guid id)
@@ -52,9 +50,9 @@ namespace ServiceDesk.WebApp.Services
             try
             {
                 ItemResponse<T> response = await _container.ReadItemAsync<T>(id.ToString(), new PartitionKey(id.ToString()));
-                return response.Resource;
+                return response;   //  return response.Resource;
             }
-            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            catch (CosmosException ex) when (ex.Status == 404)   //   catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return default(T);
             }
@@ -62,15 +60,19 @@ namespace ServiceDesk.WebApp.Services
 
         public async Task<IEnumerable<T>> GetAllAsync(string queryString)
         {
-            queryString = "SELECT * FROM c";
-
             var query = _container.GetItemQueryIterator<T>(new QueryDefinition(queryString));
             var entities = new List<T>();
-            while (query.HasMoreResults)
-            {
-                var response = await query.ReadNextAsync();
+            // while (query.HasMoreResults)
+            // {
+            //     var response = await query.ReadNextAsync();
+            //     entities.AddRange(response.ToList());
+            // }
 
-                entities.AddRange(response.ToList());
+            var queryResponseAsync = query.GetAsyncEnumerator();
+
+            while (await queryResponseAsync.MoveNextAsync())
+            {
+                entities.Add(queryResponseAsync.Current);
             }
 
             return entities;
@@ -91,7 +93,8 @@ namespace ServiceDesk.WebApp.Services
 
         public async Task<T> GetSingleAsync()
         {
-            throw new NotImplementedException();
+            var result = await GetAllAsync("");
+            return result.FirstOrDefault();
         }
 
         public async Task DeleteAsync(Guid id)
