@@ -33,7 +33,7 @@ namespace ServiceDesk.WebApp.Services
             };
         }
 
-        private string EntityFolder() => $@"{_configuration["LocalFileRepositoryService:RootFolder"]}\{typeof(T).Name}";
+        private string EntityFolder() => $@"{_configuration["FileSystemRepository:RootFolder"]}\{typeof(T).Name}";
         private string FileUri(Guid id) => $@"{EntityFolder()}\{id}.json";
 
 

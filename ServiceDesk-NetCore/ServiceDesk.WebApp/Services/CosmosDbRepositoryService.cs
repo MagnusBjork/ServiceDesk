@@ -16,22 +16,25 @@ namespace ServiceDesk.WebApp.Services
         private readonly IConfiguration _configuration;
 
 
-        private CosmosClient _cosmosClient;
+        private readonly CosmosClient _cosmosClient;
 
         private CosmosContainer _container;
 
-        private readonly string _databaseId = "ServiceDesk";
-        private readonly string _containerId = typeof(T).Name;
+        private readonly string _databaseId;
+        private readonly string _containerId;
 
 
         public GenericCosmosDbRepository(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
 
-            string endpointUri = "https://localhost:8081";
-            string primaryKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+            string endpointUri = _configuration["CosmosDbRepository:EndpointUri"];
+            string primaryKey = _configuration["CosmosDbRepository:PrimaryKey"];
 
             _cosmosClient = new CosmosClient(endpointUri, primaryKey);
+
+            _databaseId = _configuration["CosmosDbRepository:DatabaseId"];
+            _containerId = typeof(T).Name;
 
             _container = _cosmosClient.GetContainer(_databaseId, _containerId);
 
@@ -41,8 +44,9 @@ namespace ServiceDesk.WebApp.Services
 
         private void Setup()
         {
+            string partitionKey = "/id";    // Use enity id as partition key
             var database = _cosmosClient.CreateDatabaseIfNotExistsAsync(_databaseId).GetAwaiter().GetResult();
-            _container = database.Database.CreateContainerIfNotExistsAsync(_containerId, "/id").GetAwaiter().GetResult();
+            _container = database.Database.CreateContainerIfNotExistsAsync(_containerId, partitionKey).GetAwaiter().GetResult();
         }
 
         public async Task<T> GetAsync(Guid id)
