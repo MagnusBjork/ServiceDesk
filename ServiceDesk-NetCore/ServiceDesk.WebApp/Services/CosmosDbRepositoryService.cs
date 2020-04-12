@@ -11,7 +11,7 @@ using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public class CosmosDbRepositoryService<T> : IRepositoryService<T> where T : IDomainEntity
+    public class GenericCosmosDbRepository<T> : IGenericRepository<T> where T : IDomainEntity
     {
         private readonly IConfiguration _configuration;
 
@@ -24,7 +24,7 @@ namespace ServiceDesk.WebApp.Services
         private readonly string _containerId = typeof(T).Name;
 
 
-        public CosmosDbRepositoryService(IConfiguration configuration, IWebHostEnvironment env)
+        public GenericCosmosDbRepository(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
 
@@ -50,9 +50,9 @@ namespace ServiceDesk.WebApp.Services
             try
             {
                 ItemResponse<T> response = await _container.ReadItemAsync<T>(id.ToString(), new PartitionKey(id.ToString()));
-                return response;   //  return response.Resource;
+                return response;
             }
-            catch (CosmosException ex) when (ex.Status == 404)   //   catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            catch (CosmosException ex) when (ex.Status == 404)
             {
                 return default(T);
             }
@@ -62,11 +62,6 @@ namespace ServiceDesk.WebApp.Services
         {
             var query = _container.GetItemQueryIterator<T>(new QueryDefinition(queryString));
             var entities = new List<T>();
-            // while (query.HasMoreResults)
-            // {
-            //     var response = await query.ReadNextAsync();
-            //     entities.AddRange(response.ToList());
-            // }
 
             var queryResponseAsync = query.GetAsyncEnumerator();
 

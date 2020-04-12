@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceDesk.WebApp.Domain;
 
-namespace ServiceDesk.WebApp.Services.DomainRepositories
+namespace ServiceDesk.WebApp.Services
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         IList<User> GetAllUsers();
         string GetUserName(Guid id);
     }
 
-    public class UserRepository : IUserRepository
+    public class UserService : IUserService
     {
         // OptionSet values are hard coded for now. Later on an admin view will be developed to let admin 
         // create and edit optionsets in the app.

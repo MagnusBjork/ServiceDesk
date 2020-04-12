@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceDesk.WebApp.Services;
-using ServiceDesk.WebApp.Services.DomainRepositories;
 
 namespace ServiceDesk.WebApp
 {
@@ -26,15 +25,12 @@ namespace ServiceDesk.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            services.AddScoped<ITicketRepository, TicketRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITicketNumberService, TicketNumberService>();
 
             //  services.AddSingleton(typeof(IRepositoryService<>), typeof(LocalFileRepositoryService<>));
-            services.AddSingleton(typeof(IRepositoryService<>), typeof(CosmosDbRepositoryService<>));
-
-
-
+            services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericCosmosDbRepository<>));
 
             services.AddSingleton<IOptionSetService, OptionSetService>();
         }

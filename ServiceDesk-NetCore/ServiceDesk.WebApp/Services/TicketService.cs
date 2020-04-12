@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ServiceDesk.WebApp.Domain;
-using ServiceDesk.WebApp.Services;
 
-namespace ServiceDesk.WebApp.Services.DomainRepositories
+namespace ServiceDesk.WebApp.Services
 {
-    public interface ITicketRepository
+    public interface ITicketService
     {
         Task<Ticket> GetTicketAsync(Guid id);
         Task<IEnumerable<Ticket>> GetAllTicketsAsync();
@@ -15,12 +14,12 @@ namespace ServiceDesk.WebApp.Services.DomainRepositories
         Task DeleteTicketAsync(Guid id);
     }
 
-    public class TicketRepository : ITicketRepository
+    public class TicketService : ITicketService
     {
-        private readonly IRepositoryService<Ticket> _repository;
+        private readonly IGenericRepository<Ticket> _repository;
         private readonly ITicketNumberService _ticketNumberService;
 
-        public TicketRepository(IRepositoryService<Ticket> repository, ITicketNumberService ticketNumberService)
+        public TicketService(IGenericRepository<Ticket> repository, ITicketNumberService ticketNumberService)
         {
             _repository = repository;
             _ticketNumberService = ticketNumberService;

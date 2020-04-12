@@ -12,14 +12,14 @@ using ServiceDesk.WebApp.Domain;
 
 namespace ServiceDesk.WebApp.Services
 {
-    public class LocalFileRepositoryService<T> : IRepositoryService<T> where T : IDomainEntity
+    public class GenericFileSystemRepository<T> : IGenericRepository<T> where T : IDomainEntity
     {
         private readonly IConfiguration _configuration;
 
         private JsonSerializerOptions _options;
 
 
-        public LocalFileRepositoryService(IConfiguration configuration, IWebHostEnvironment env)
+        public GenericFileSystemRepository(IConfiguration configuration, IWebHostEnvironment env)
         {
             _configuration = configuration;
 
@@ -43,8 +43,6 @@ namespace ServiceDesk.WebApp.Services
             if (!Directory.Exists(EntityFolder()))
                 Directory.CreateDirectory(EntityFolder());
         }
-
-
 
         public async Task<T> GetAsync(Guid id)
         {

@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ServiceDesk.WebApp.Services.DomainRepositories;
+using ServiceDesk.WebApp.Services;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
 {
     public class DetailsModel : PageModel
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ITicketService _ticketRepository;
+        private readonly IUserService _userRepository;
         private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(ITicketRepository ticketRepository, IUserRepository userRepository, ILogger<DetailsModel> logger)
+        public DetailsModel(ITicketService ticketRepository, IUserService userRepository, ILogger<DetailsModel> logger)
         {
             _ticketRepository = ticketRepository;
             _userRepository = userRepository;

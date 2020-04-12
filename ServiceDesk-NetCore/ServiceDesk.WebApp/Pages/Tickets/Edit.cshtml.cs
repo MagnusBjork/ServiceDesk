@@ -8,18 +8,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using ServiceDesk.WebApp.Domain;
 using ServiceDesk.WebApp.Services;
-using ServiceDesk.WebApp.Services.DomainRepositories;
 
 namespace ServiceDesk.WebApp.Pages.Tickets
 {
     public class EditModel : PageModel
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ITicketService _ticketRepository;
+        private readonly IUserService _userRepository;
         private readonly IOptionSetService _optionSetService;
         private readonly ILogger<EditModel> _logger;
 
-        public EditModel(ITicketRepository ticketRepository, IUserRepository userRepository, IOptionSetService optionSetService, ILogger<EditModel> logger)
+        public EditModel(ITicketService ticketRepository, IUserService userRepository, IOptionSetService optionSetService, ILogger<EditModel> logger)
         {
             _ticketRepository = ticketRepository;
             _userRepository = userRepository;
